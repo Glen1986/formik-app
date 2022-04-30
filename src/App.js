@@ -34,19 +34,23 @@ function App() {
             <input
                 name="name"
                 type="text"
+                onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 values={formik.values.name}
             />
-            {formik.errors.name ? <div>{formik.errors.name}</div> : null}
+            {formik.touched.name && formik.errors.name ? (
+                <div>{formik.errors.name}</div>
+            ) : null}
             <br />
             <label>Apellido</label>
             <input
                 name="lastname"
                 type="text"
+                onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 values={formik.values.lastname}
             />
-            {formik.errors.lastname ? (
+            {formik.touched.lastname && formik.errors.lastname ? (
                 <div>{formik.errors.lastname}</div>
             ) : null}
             <br />
@@ -54,10 +58,13 @@ function App() {
             <input
                 name="email"
                 type="email"
+                onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 values={formik.values.email}
             />
-            {formik.errors.email ? <div>{formik.errors.email}</div> : null}
+            {formik.touched.email && formik.errors.email ? (
+                <div>{formik.errors.email}</div>
+            ) : null}
             <br />
             <button type="submit">enviar</button>
         </form>
