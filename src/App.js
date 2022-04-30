@@ -1,5 +1,24 @@
 import { useFormik } from 'formik'
 
+const validate = (values) => {
+    const errors = {}
+    if (!values.name) {
+        errors.name = 'Nombre Requerido'
+    } else if (values.name.length < 4) {
+        errors.name = 'el nombre es muy corto'
+    }
+    if (!values.lastname) {
+        errors.lastname = 'Apellido Requewrido'
+    } else if (values.lastname.length < 4) {
+        errors.lastname = 'el apellido es muy corto'
+    }
+    if (!values.email) {
+        errors.email = 'Correo Requerido'
+    }
+
+    return errors
+}
+
 function App() {
     const formik = useFormik({
         initialValues: {
@@ -7,7 +26,7 @@ function App() {
             lastname: '',
             email: '',
         },
-        onSubmit: (values) => console.log(values),
+        validate,
     })
     return (
         <form style={{ display: 'block' }} onSubmit={formik.handleSubmit}>
@@ -18,6 +37,8 @@ function App() {
                 onChange={formik.handleChange}
                 values={formik.values.name}
             />
+            {formik.errors.name ? <div>{formik.errors.name}</div> : null}
+            <br />
             <label>Apellido</label>
             <input
                 name="lastname"
@@ -25,13 +46,19 @@ function App() {
                 onChange={formik.handleChange}
                 values={formik.values.lastname}
             />
-            <label>Email</label>
+            {formik.errors.lastname ? (
+                <div>{formik.errors.lastname}</div>
+            ) : null}
+            <br />
+            <label> Email </label>
             <input
                 name="email"
                 type="email"
                 onChange={formik.handleChange}
                 values={formik.values.email}
             />
+            {formik.errors.email ? <div>{formik.errors.email}</div> : null}
+            <br />
             <button type="submit">enviar</button>
         </form>
     )
