@@ -1,5 +1,4 @@
-
-import { Formik } from 'formik'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 const validate = (values) => {
     const errors = {}
@@ -22,37 +21,33 @@ const validate = (values) => {
 
 function App() {
     return (
-<Formik 
-initialValues={{name: '', lastname: '', email: ''}}
-validate={validate}
-onSubmit={values => console.log(values)}
-             >
-    {
-   formik =>
-        <form style={{ display: 'block' }} onSubmit={formik.handleSubmit}>
-            <label>Nombre</label>
-            <input type="text" {...formik.getFieldProps('name')} />
-            {formik.touched.name && formik.errors.name ? (
-                <div>{formik.errors.name}</div>
-            ) : null}
-            <br />
-            <label>Apellido</label>
-            <input type="text" {...formik.getFieldProps('lastname')} />
-            {formik.touched.lastname && formik.errors.lastname ? (
-                <div>{formik.errors.lastname}</div>
-            ) : null}
-            <br />
-            <label> Email </label>
-            <input type="email" {...formik.getFieldProps('email')} />
-            {formik.touched.email && formik.errors.email ? (
-                <div>{formik.errors.email}</div>
-            ) : null}
-            <br />
-            <button type="submit">enviar</button>
-        </form>
-   }
-</Formik> 
-)
+        <Formik
+            initialValues={{ name: '', lastname: '', email: '' }}
+            validate={validate}
+            onSubmit={(values) => console.log(values)}
+        >
+            {(formik) => (
+                <Form
+                    style={{ display: 'block' }}
+                    onSubmit={formik.handleSubmit}
+                >
+                    <label>Nombre</label>
+                    <Field name="name" type="text" />
+                    <ErrorMessage name="name" />
+                    <br />
+                    <label>Apellido</label>
+                    <Field name="lastname" type="text" />
+                    <ErrorMessage name="lastname" />
+                    <br />
+                    <label> Email </label>
+                    <Field name="coreo" type="email" />
+                    <ErrorMessage name="email" />
+                    <br />
+                    <button type="submit">enviar</button>
+                </Form>
+            )}
+        </Formik>
+    )
 }
 
 export default App
