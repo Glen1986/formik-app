@@ -1,5 +1,4 @@
-
-import { Formik } from 'formik'
+import { useFormik } from 'formik'
 
 const validate = (values) => {
     const errors = {}
@@ -21,14 +20,15 @@ const validate = (values) => {
 }
 
 function App() {
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+            lastname: '',
+            email: '',
+        },
+        validate,
+    })
     return (
-<Formik 
-initialValues={{name: '', lastname: '', email: ''}}
-validate={validate}
-onSubmit={values => console.log(values)}
-             >
-    {
-   formik =>
         <form style={{ display: 'block' }} onSubmit={formik.handleSubmit}>
             <label>Nombre</label>
             <input type="text" {...formik.getFieldProps('name')} />
@@ -50,9 +50,7 @@ onSubmit={values => console.log(values)}
             <br />
             <button type="submit">enviar</button>
         </form>
-   }
-</Formik> 
-)
+    )
 }
 
 export default App
