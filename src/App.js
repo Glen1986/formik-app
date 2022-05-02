@@ -22,7 +22,12 @@ const validate = (values) => {
 function App() {
     return (
         <Formik
-            initialValues={{ name: '', lastname: '', email: '' }}
+            initialValues={{
+                name: '',
+                lastname: '',
+                email: '',
+                select: 'weed',
+            }}
             validate={validate}
             onSubmit={(values) => console.log(values)}
         >
@@ -32,7 +37,11 @@ function App() {
                     onSubmit={formik.handleSubmit}
                 >
                     <label>Nombre</label>
-                    <Field name="name" type="text" />
+                    <Field name="name" type="text" className="input" />
+                    <Field name="select" as="select" className="input">
+                        <option value="weed">weed</option>
+                        <option value="cafe">café</option>
+                    </Field>
                     <ErrorMessage name="name" />
                     <br />
                     <label>Apellido</label>
@@ -40,7 +49,7 @@ function App() {
                     <ErrorMessage name="lastname" />
                     <br />
                     <label> Email </label>
-                    <Field name="coreo" type="email" />
+                    <Field name="email" type="email" />
                     <ErrorMessage name="email" />
                     <br />
                     <button type="submit">enviar</button>
